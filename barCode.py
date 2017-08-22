@@ -96,7 +96,7 @@ def confirmationUI(s):
 	view.present('sheet')                                 # [9]
 
 
-MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_didOutputMetadataObjects_fromConnection_], protocols=['AVCaptureMetadataOutputObjectsDelegate'], session)
+MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_didOutputMetadataObjects_fromConnection_], protocols=['AVCaptureMetadataOutputObjectsDelegate'], session=session)
 
 @on_main_thread
 def main():

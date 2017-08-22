@@ -38,7 +38,7 @@ def menu():
 	view.add_subview(button_QR)                              	# [8]
 	view.present('sheet')                                 		# [9]
 
-def captureOutput_didOutputMetadataObjects_fromConnection_(_self, _cmd, _output, _metadata_objects, _conn):
+def captureOutput_didOutputMetadataObjects_fromConnection_(_self, _cmd, _output, _metadata_objects, _conn, session):
 	objects = ObjCInstance(_metadata_objects)
 	for obj in objects:
 		s = str(obj.stringValue())
@@ -96,7 +96,7 @@ def confirmationUI(s):
 	view.present('sheet')                                 # [9]
 
 
-MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_didOutputMetadataObjects_fromConnection_], protocols=['AVCaptureMetadataOutputObjectsDelegate'])
+MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_didOutputMetadataObjects_fromConnection_], protocols=['AVCaptureMetadataOutputObjectsDelegate'], session)
 
 @on_main_thread
 def main():

@@ -84,11 +84,13 @@ def shouldContinue(myResults, lastName):
         main()
 
     elif variable == 2:
-        transmit = console.alert('Sende resultater', 'Hvordan vil du sende resultatene?', 'iMessage', 'E-mail', hide_cancel_button=True)
+        transmit = console.alert('Sende resultater', 'Hvordan vil du sende resultatene?', 'iMessage', 'E-mail', 'Clipboard', hide_cancel_button=True)
         if transmit == 1:
             newSMS(myResults)
         elif transmit == 2:
             newMail(myResults)
+        elif transmit == 3:
+            clipboard.set(myResults)
 
 def main():
     raw = scanner()

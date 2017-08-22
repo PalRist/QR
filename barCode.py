@@ -66,11 +66,20 @@ def main():
     session.release()
     output.release()
     return s
-    # if found_code:
-    #     print('All scanned codes:\n' + '\n'.join(found_code))
  
+ def background():
+    bg_view = ui.View()
+    bg_view.name = 'background' 
+    bg_view.background_color = 'white'
+    bg_view.present('sheet')
 
 
 if __name__ == '__main__':
-    a = main()
-    print(list(a))
+    raw = main()
+    background()
+    myScan = list(raw)[0]
+    myPrompt = console.alert('Vil du godkjenne', 'Ja', 'Nei', hide_cancel_button=True)
+    if myPrompt == 1:
+        print("Ja")
+    elif myPrompt == 2:
+        print("Nei")

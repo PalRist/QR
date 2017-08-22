@@ -7,7 +7,6 @@ from ctypes import c_void_p
 import ui
 import sound
  
-found_codes = set()
 main_view = None
  
 AVCaptureSession = ObjCClass('AVCaptureSession')
@@ -22,11 +21,11 @@ def captureOutput_didOutputMetadataObjects_fromConnection_(_self, _cmd, _output,
     objects = ObjCInstance(_metadata_objects)
     for obj in objects:
         s = str(obj.stringValue())
-        if s not in found_codes:
-            found_codes.add(s)
-            sound.play_effect('digital:PowerUp7')
-        # main_view['label'].text = 'Last scan: ' + s
-            main_view.close()
+        # if s not in found_code:
+        found_code = s
+        sound.play_effect('digital:PowerUp7')
+    # main_view['label'].text = 'Last scan: ' + s
+        main_view.close()
  
 MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_didOutputMetadataObjects_fromConnection_], protocols=['AVCaptureMetadataOutputObjectsDelegate'])
  
@@ -66,12 +65,12 @@ def main():
     delegate.release()
     session.release()
     output.release()
-    return found_codes
-    # if found_codes:
-    #     print('All scanned codes:\n' + '\n'.join(found_codes))
+    return found_code
+    # if found_code:
+    #     print('All scanned codes:\n' + '\n'.join(found_code))
  
 
 
 if __name__ == '__main__':
     a = main()
-    print(a)
+    print(str(a))

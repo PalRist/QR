@@ -7,21 +7,17 @@ from ctypes import c_void_p
 import ui
 import sound
 
-class QRscanner(self):
-    found_codes = set()   
-    MetadataDelegate = create_objc_class('MetadataDelegate', 
-        methods=[captureOutput_didOutputMetadataObjects_fromConnection_], 
-        protocols=['AVCaptureMetadataOutputObjectsDelegate']
-        )
-
-    main_view = None
-    AVCaptureSession = ObjCClass('AVCaptureSession')
-    AVCaptureDevice = ObjCClass('AVCaptureDevice')
-    AVCaptureDeviceInput = ObjCClass('AVCaptureDeviceInput')
-    AVCaptureMetadataOutput = ObjCClass('AVCaptureMetadataOutput')
-    AVCaptureVideoPreviewLayer = ObjCClass('AVCaptureVideoPreviewLayer')
-    dispatch_get_current_queue = c.dispatch_get_current_queue
-    dispatch_get_current_queue.restype = c_void_p
+class QRscanner():
+    self.found_codes = set()   
+    
+    self.main_view = None
+    self.AVCaptureSession = ObjCClass('AVCaptureSession')
+    self.AVCaptureDevice = ObjCClass('AVCaptureDevice')
+    self.AVCaptureDeviceInput = ObjCClass('AVCaptureDeviceInput')
+    self.AVCaptureMetadataOutput = ObjCClass('AVCaptureMetadataOutput')
+    self.AVCaptureVideoPreviewLayer = ObjCClass('AVCaptureVideoPreviewLayer')
+    self.dispatch_get_current_queue = c.dispatch_get_current_queue
+    self.dispatch_get_current_queue.restype = c_void_p
 
 
     def captureOutput_didOutputMetadataObjects_fromConnection_(_self, _cmd, _output, _metadata_objects, _conn):
@@ -32,6 +28,8 @@ class QRscanner(self):
                 found_codes.add(s)
                 sound.play_effect('digital:PowerUp7')
             main_view['label'].text = 'Last scan: ' + s
+
+    MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_didOutputMetadataObjects_fromConnection_], protocols=['AVCaptureMetadataOutputObjectsDelegate'])
 
     @on_main_thread
     def main(self):
@@ -73,4 +71,4 @@ class QRscanner(self):
             print('All scanned codes:\n' + '\n'.join(found_codes))
 
 if __name__ == '__main__':
-    QRscanner()
+    QRscanner.main()

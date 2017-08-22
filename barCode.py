@@ -104,7 +104,8 @@ def main():
 
 if __name__ == '__main__':
     main()
-    print(myResults)
+    for person, res in myResults:
+        print(person, res)
 
     # bg_view = ui.View()
     # bg_view.name = '5S-godkjenning' 

@@ -97,10 +97,10 @@ def main():
 
     if scan == 1:
         myResults[myScan] = 'Godkjent'
-        shouldContinue(myResults, myScan)
     elif scan == 2:
         myResults[myScan] = 'Ikke godkjent'
-        shouldContinue(myResults, myScan)
+        
+    shouldContinue(myResults, myScan)
 
     return myResults
 

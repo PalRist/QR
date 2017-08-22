@@ -19,25 +19,28 @@ AVCaptureVideoPreviewLayer = ObjCClass('AVCaptureVideoPreviewLayer')
 dispatch_get_current_queue = c.dispatch_get_current_queue
 dispatch_get_current_queue.restype = c_void_p
 
-class PopOverView(ui.View, mode = 1):
+class PopOverView(ui.View):
 	view_main = None
 	view_po = None 
 
 	def __init__(self):
 		PopOverView.view_main = ui.load_view('pop-over')
 		PopOverView.view_main.present('fullscreen')
+		mode = 1
 		if mode == 1:
 			PopOverView.view_po.present('Godkjenn 5S?',popover_location=(400,400))
 		elif mode == 2:
 			PopOverView.view_po.present('Hvordan vil du sende resultatene?',popover_location=(400,400))
 
-		def quit(self, sender, mode):
+		def quit(self, sender):
+			mode = 1
 		    def ask_user(sender, mode):
 		    	if mode == 1:
 			    	PopOverView.view_po.close()
 			    	if sender.name == 'Ja':
 			        	PopOverView.view_main.close()
-			        	PopOverView(mode = 2)
+			        	mode = 2
+			        	PopOverView()
 			    	if sender.name == 'Nei':
 			        	PopOverView.view_main.close()
 		    	elif mode == 2:

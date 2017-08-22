@@ -70,13 +70,13 @@ def scanner():
     return s
 
 def newMail(mytext):
-    email.message.Message
+    print("new mail")
 
 
 def newSMS(mytext):
     print("new mail")
 
-def shouldContinue(lastName):
+def shouldContinue(myResults, lastName):
     variable = console.alert('{} er ført.'.format(lastName), 'Vil du scanne flere?', 'Ja', 'Send resultater', hide_cancel_button=True)
     if variable == 1:
         ScanUI()
@@ -84,9 +84,9 @@ def shouldContinue(lastName):
     elif variable == 2:
         transmit = console.alert('Sende resultater', 'Hvordan vil du sende resultatene?', 'iMessage', 'E-mail', hide_cancel_button=True)
         if transmit == 1:
-            newSMS()
+            newSMS(myResults)
         elif transmit == 2:
-            newMail()
+            newMail(myResults)
 
 def main():
     raw = scanner()
@@ -102,21 +102,9 @@ def main():
         myResults[myScan] = 'Ikke godkjent'
         print("NEI, ikke godkjent")
 
+    return myResults
+
 if __name__ == '__main__':
     main()
     for person, res in myResults:
         print(person, res)
-
-    # bg_view = ui.View()
-    # bg_view.name = '5S-godkjenning' 
-    # bg_view.background_color = 'white'    
-    # label = ui.Label(frame=(0, 50, bg_view.width, bg_view.height/3), flex='W', name='label')
-    # label.text = 'Vil du godkjenne {}s 5S?'.format(myScan)
-    # label.alignment = ui.ALIGN_CENTER
-    # bg_view.add_subview(label)
-    # bg_view.present('sheet')
-
-
-
-
-

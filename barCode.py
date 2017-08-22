@@ -77,7 +77,7 @@ if __name__ == '__main__':
     bg_view = ui.View()
     bg_view.name = 'background' 
     bg_view.background_color = 'white'    
-    label = ui.Label(frame=(0, 0, 400, 60), flex='W', name='label')
+    label = ui.Label(frame=(0, 0, bg_view.width, bg_view.height/3), flex='W', name='label')
     label.text = 'Vil du godkjenne {}s 5S?'.format(myScan)
     label.alignment = ui.ALIGN_CENTER
     bg_view.add_subview(label)

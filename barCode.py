@@ -36,7 +36,7 @@ MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_
 def scanner():
     global main_view
     delegate = MetadataDelegate.new()
-    main_view = ui.View(frame=(0, 0, 400, 400))
+    main_view = ui.View(frame=(0, 0, main_view.width, main_view.height))
     main_view.name = 'Barcode Scanner'
     session = AVCaptureSession.alloc().init()
     device = AVCaptureDevice.defaultDeviceWithMediaType_('vide')
@@ -86,7 +86,7 @@ def shouldContinue(myResults, lastName):
 
     elif variable == 2:
         transmit = console.alert('Sende resultater', 'Hvordan vil du sende resultatene?', 'iMessage', 'E-mail', 'Clipboard', hide_cancel_button=True)
-        myString = '<br/>'.join(['%s :: %s' % (key, value) for (key, value) in myResults.items()])
+        myString = '\n'.join(['%s :: %s' % (key, value) for (key, value) in myResults.items()])
         if transmit == 1:
             newSMS(myString)
         elif transmit == 2:

@@ -6,7 +6,8 @@ from objc_util import *
 from ctypes import c_void_p
 import ui
 import sound
- 
+
+found_code = ''
 main_view = None
  
 AVCaptureSession = ObjCClass('AVCaptureSession')

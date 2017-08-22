@@ -25,8 +25,8 @@ def captureOutput_didOutputMetadataObjects_fromConnection_(_self, _cmd, _output,
         if s not in found_codes:
             found_codes.add(s)
             sound.play_effect('digital:PowerUp7')
-        main_view['label'].text = 'Last scan: ' + s
-        main_view.release()
+        # main_view['label'].text = 'Last scan: ' + s
+            main_view.close()
  
 MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_didOutputMetadataObjects_fromConnection_], protocols=['AVCaptureMetadataOutputObjectsDelegate'])
  
@@ -66,8 +66,12 @@ def main():
     delegate.release()
     session.release()
     output.release()
-    if found_codes:
-        print('All scanned codes:\n' + '\n'.join(found_codes))
+    return found_codes
+    # if found_codes:
+    #     print('All scanned codes:\n' + '\n'.join(found_codes))
  
+
+
 if __name__ == '__main__':
-    main()
+    a = main()
+    print(a)

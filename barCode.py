@@ -70,11 +70,13 @@ def scanner():
     return s
 
 def newMail(mytext):
-    print("new mail")
+    for i in mytext:
+        print(i, mytext[i])
 
 
 def newSMS(mytext):
-    print("new mail")
+    for i in mytext:
+        print(i, mytext[i])
 
 def shouldContinue(myResults, lastName):
     variable = console.alert('{} er ført.'.format(lastName), 'Vil du scanne flere?', 'Ja', 'Send resultater', hide_cancel_button=True)
@@ -107,5 +109,5 @@ def main():
 
 if __name__ == '__main__':
     myResults = main()
-    for res in myResults:
-        print(res, myResults[res])
+    for i in myResults:
+        print(i, myResults[i])

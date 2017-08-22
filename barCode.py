@@ -7,7 +7,6 @@ from ctypes import c_void_p
 import ui
 import sound
 
-found_code = ''
 main_view = None
  
 AVCaptureSession = ObjCClass('AVCaptureSession')
@@ -23,7 +22,6 @@ def captureOutput_didOutputMetadataObjects_fromConnection_(_self, _cmd, _output,
     for obj in objects:
         s = str(obj.stringValue())
         # if s not in found_code:
-        found_code = s
         sound.play_effect('digital:PowerUp7')
     # main_view['label'].text = 'Last scan: ' + s
         main_view.close()
@@ -66,7 +64,7 @@ def main():
     delegate.release()
     session.release()
     output.release()
-    return found_code
+    return s
     # if found_code:
     #     print('All scanned codes:\n' + '\n'.join(found_code))
  

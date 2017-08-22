@@ -86,7 +86,7 @@ def shouldContinue(myResults, lastName):
 
     elif variable == 2:
         transmit = console.alert('Sende resultater', 'Hvordan vil du sende resultatene?', 'iMessage', 'E-mail', 'Clipboard', hide_cancel_button=True)
-        myString = '\n'.join(['%s :: %s' % (key, value) for (key, value) in myResults.items()])
+        myString = '\n'.join(["{}, {}".format(key, value) for (key, value) in myResults.items()])
         if transmit == 1:
             newSMS(myString)
         elif transmit == 2:

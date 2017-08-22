@@ -7,7 +7,7 @@ from ctypes import c_void_p
 import ui
 import sound
 
-class QRscanner():
+class QRscanner(self):
     self.found_codes = set()   
     
     self.main_view = None
@@ -29,7 +29,7 @@ class QRscanner():
                 sound.play_effect('digital:PowerUp7')
             main_view['label'].text = 'Last scan: ' + s
 
-    MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_didOutputMetadataObjects_fromConnection_], protocols=['AVCaptureMetadataOutputObjectsDelegate'])
+    self.MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_didOutputMetadataObjects_fromConnection_], protocols=['AVCaptureMetadataOutputObjectsDelegate'])
 
     @on_main_thread
     def main(self):

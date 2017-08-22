@@ -31,7 +31,7 @@ def captureOutput_didOutputMetadataObjects_fromConnection_(_self, _cmd, _output,
 MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_didOutputMetadataObjects_fromConnection_], protocols=['AVCaptureMetadataOutputObjectsDelegate'])
  
 @on_main_thread
-def main():
+def scan():
     global main_view
     delegate = MetadataDelegate.new()
     main_view = ui.View(frame=(0, 0, 400, 400))
@@ -77,14 +77,37 @@ def newSMS(text):
 def shouldContinue(lastName):
     variable = console.alert('{} er ført.'.format(lastName), 'Vil du scanne flere?', 'Ja', 'Send resultater', hide_cancel_button=True)
     if variable == 1:
-        print("JA, flere")
+        ScanUI()
+
     elif variable == 2:
-        print("NEI, Send resultater")
+        transmit = console.alert('Sende resultater', 'Hvordan vil du sende resultatene?', 'iMessage', 'E-mail', hide_cancel_button=True)
+        if transmit == 1:
+            newSMS()
+        elif transmit == 2:
+            newMail()
+
+def ScanUI():
+    myResults = dict()
+    raw = scan()
+    myScan = list(raw)[0]
+    scan = console.alert('{}'.format(myScan), 'Vil du godkjenne {}'.format(myScan), 'Ja', 'Nei', hide_cancel_button=True)
+
+    if scan == 1:
+        myResults[myScan] = 'Godkjent'
+        print("JA, godkjent")
+        shouldContinue(myResults, myScan)
+    elif scan == 2:
+        myResults[myScan] = 'Ikke godkjent'
+        print("NEI, ikke godkjent")
+
+
+def main():
+    ScanUI()
 
 
 if __name__ == '__main__':
-    raw = main()
-    myScan = list(raw)[0]
+    main()
+
     # bg_view = ui.View()
     # bg_view.name = '5S-godkjenning' 
     # bg_view.background_color = 'white'    
@@ -93,12 +116,7 @@ if __name__ == '__main__':
     # label.alignment = ui.ALIGN_CENTER
     # bg_view.add_subview(label)
     # bg_view.present('sheet')
-    scan = console.alert('{}', 'Vil du godkjenne {}'.format(myScan), 'Ja', 'Nei', hide_cancel_button=True)
-    if scan == 1:
-        print("JA, godkjent")
-        shouldContinue(myScan)
-    elif scan == 2:
-        print("NEI, ikke godkjent")
+
 
 
 

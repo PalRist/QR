@@ -79,7 +79,7 @@ def newSMS(mytext):
 def shouldContinue(myResults, lastName):
     variable = console.alert('{} er ført.'.format(lastName), 'Vil du scanne flere?', 'Ja', 'Send resultater', hide_cancel_button=True)
     if variable == 1:
-        ScanUI()
+        main()
 
     elif variable == 2:
         transmit = console.alert('Sende resultater', 'Hvordan vil du sende resultatene?', 'iMessage', 'E-mail', hide_cancel_button=True)
@@ -105,6 +105,6 @@ def main():
     return myResults
 
 if __name__ == '__main__':
-    main()
+    myResults = main()
     for person, res in myResults:
         print(person, res)

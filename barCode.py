@@ -92,14 +92,14 @@ def shouldContinue(myResults, lastName):
 
 def main():
     raw = scanner()
-    myScan = list(raw)[0]
+    myScan = list(raw)[-1]
     scan = console.alert('{}'.format(myScan), 'Vil du godkjenne {}'.format(myScan), 'Ja', 'Nei', hide_cancel_button=True)
 
     if scan == 1:
         myResults[myScan] = 'Godkjent'
     elif scan == 2:
         myResults[myScan] = 'Ikke godkjent'
-        
+
     shouldContinue(myResults, myScan)
 
     return myResults

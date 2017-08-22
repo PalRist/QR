@@ -100,11 +100,12 @@ def main():
         shouldContinue(myResults, myScan)
     elif scan == 2:
         myResults[myScan] = 'Ikke godkjent'
+        shouldContinue(myResults, myScan)
         print("NEI, ikke godkjent")
 
     return myResults
 
 if __name__ == '__main__':
     myResults = main()
-    for person, res in myResults:
-        print(person, res)
+    for res in myResults:
+        print(res, myResults[res])

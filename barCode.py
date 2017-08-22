@@ -47,11 +47,8 @@ def captureOutput_didOutputMetadataObjects_fromConnection_(_self, _cmd, _output,
 			sound.play_effect('digital:PowerUp7')
 			confirmationUI(s)
 		main_view['label'].text = 'Last scan: ' + s
-		session.stopRunning()
-		delegate.release()
-		session.release()
-		output.release()
-		treatScan(found_codes)
+		main_view.close()
+
 
 def newMail(text):
 	console.alert('Ny mail', hide_cancel_button=True)
@@ -96,7 +93,7 @@ def confirmationUI(s):
 	view.present('sheet')                                 # [9]
 
 
-MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_didOutputMetadataObjects_fromConnection_], protocols=['AVCaptureMetadataOutputObjectsDelegate'], session=session)
+MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_didOutputMetadataObjects_fromConnection_], protocols=['AVCaptureMetadataOutputObjectsDelegate'])
 
 @on_main_thread
 def main():
@@ -130,6 +127,11 @@ def main():
 	session.startRunning()
 	main_view.present('sheet')
 	main_view.wait_modal()
+	session.stopRunning()
+	delegate.release()
+	session.release()
+	output.release()
+	treatScan(found_codes)
 
 
 if __name__ == '__main__':

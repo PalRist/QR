@@ -6,6 +6,7 @@ from objc_util import *
 from ctypes import c_void_p
 import ui
 import sound
+import console
 
 s = set()
 main_view = None
@@ -66,24 +67,20 @@ def main():
     session.release()
     output.release()
     return s
- 
- def background():
-
-
 
 if __name__ == '__main__':
     raw = main()
     myScan = list(raw)[0]
     bg_view = ui.View()
-    bg_view.name = 'background' 
+    bg_view.name = '5S-godkjenning' 
     bg_view.background_color = 'white'    
-    label = ui.Label(frame=(0, 0, bg_view.width, bg_view.height/3), flex='W', name='label')
+    label = ui.Label(frame=(0, 50, bg_view.width, bg_view.height/3), flex='W', name='label')
     label.text = 'Vil du godkjenne {}s 5S?'.format(myScan)
     label.alignment = ui.ALIGN_CENTER
     bg_view.add_subview(label)
     bg_view.present('sheet')
 
-    console.alert('Tittel', 'Ja', 'Nei', hide_cancel_button=True)
+    console.alert('Tittel', 'Tekst', 'Ja', 'Nei', hide_cancel_button=True)
 
 
 

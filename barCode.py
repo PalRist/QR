@@ -8,6 +8,7 @@ import ui
 import sound
 import email
 import console
+import clipboard
 
 s = set()
 main_view = None
@@ -85,12 +86,13 @@ def shouldContinue(myResults, lastName):
 
     elif variable == 2:
         transmit = console.alert('Sende resultater', 'Hvordan vil du sende resultatene?', 'iMessage', 'E-mail', 'Clipboard', hide_cancel_button=True)
+        myString = '<br/>'.join(['%s :: %s' % (key, value) for (key, value) in myResults.items()])
         if transmit == 1:
-            newSMS(myResults)
+            newSMS(myString)
         elif transmit == 2:
-            newMail(myResults)
+            newMail(myString)
         elif transmit == 3:
-            clipboard.set(myResults)
+            clipboard.set(myString)
 
 def main():
     raw = scanner()

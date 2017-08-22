@@ -93,21 +93,19 @@ def shouldContinue(myResults, lastName):
 def main():
     raw = scanner()
     myScan = list(raw)[0]
-    myResults = dict()
     scan = console.alert('{}'.format(myScan), 'Vil du godkjenne {}'.format(myScan), 'Ja', 'Nei', hide_cancel_button=True)
 
     if scan == 1:
         myResults[myScan] = 'Godkjent'
-        print("JA, godkjent")
         shouldContinue(myResults, myScan)
     elif scan == 2:
         myResults[myScan] = 'Ikke godkjent'
         shouldContinue(myResults, myScan)
-        print("NEI, ikke godkjent")
 
     return myResults
 
 if __name__ == '__main__':
+    myResults = dict()
     myResults = main()
     for i in myResults:
         print(i, myResults[i])

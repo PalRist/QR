@@ -21,22 +21,23 @@ dispatch_get_current_queue.restype = c_void_p
 
 
 def menu():
-	view = ui.View()                                      		# [1]
-	view.name = 'Menu'                                    		# [2]
-	view.background_color = 'white'                       		# [3]
+	global menu_view
+	menu_view = ui.View()                                      		# [1]
+	menu_view.name = 'Menu'                                    		# [2]
+	menu_view.background_color = 'white'                       		# [3]
 	# QR-knapp
 	button_QR = ui.Button(title='Scan QR-kode')           		# [4]
-	button_QR.center = (view.width * 0.5, view.height * 0.25) 	# [5]
+	button_QR.center = (menu_view.width * 0.5, menu_view.height * 0.25) 	# [5]
 	button_QR.flex = 'LRTB'                                  	# [6]
 	button_QR.action = main                               		# [7]
-	view.add_subview(button_QR)                              	# [8]
+	menu_view.add_subview(button_QR)                              	# [8]
 	# QR-knapp
 	button_QR = ui.Button(title='Scan QR-kode')           		# [4]
-	button_QR.center = (view.width * 0.5, view.height * 0.25) 	# [5]
+	button_QR.center = (menu_view.width * 0.5, menu_view.height * 0.25) 	# [5]
 	button_QR.flex = 'LRTB'                                  	# [6]
 	button_QR.action = main                               		# [7]
-	view.add_subview(button_QR)                              	# [8]
-	view.present('sheet')                                 		# [9]
+	menu_view.add_subview(button_QR)                              	# [8]
+	menu_view.present('sheet')                                 		# [9]
 
 def captureOutput_didOutputMetadataObjects_fromConnection_(_self, _cmd, _output, _metadata_objects, _conn, session):
 	objects = ObjCInstance(_metadata_objects)
@@ -99,7 +100,7 @@ MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_
 def main():
 	global main_view
 	delegate = MetadataDelegate.new()
-	main_view = ui.View(frame=(0, 0, 400, 400))
+	main_view = ui.View(frame=(0,0,main_view.width, main_view.height))
 	main_view.name = 'Barcode Scanner'
 	session = AVCaptureSession.alloc().init()
 	device = AVCaptureDevice.defaultDeviceWithMediaType_('vide')
@@ -127,6 +128,7 @@ def main():
 	session.startRunning()
 	main_view.present('sheet')
 	main_view.wait_modal()
+	
 	session.stopRunning()
 	delegate.release()
 	session.release()

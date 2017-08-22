@@ -6,6 +6,7 @@ from objc_util import *
 from ctypes import c_void_p
 import ui
 import sound
+import email
 import console
 
 s = set()
@@ -31,7 +32,7 @@ def captureOutput_didOutputMetadataObjects_fromConnection_(_self, _cmd, _output,
 MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_didOutputMetadataObjects_fromConnection_], protocols=['AVCaptureMetadataOutputObjectsDelegate'])
  
 @on_main_thread
-def scan():
+def scanner():
     global main_view
     delegate = MetadataDelegate.new()
     main_view = ui.View(frame=(0, 0, 400, 400))
@@ -68,10 +69,11 @@ def scan():
     output.release()
     return s
 
-def newMail(text):
-    print("new mail")
+def newMail(mytext):
+    email.message.Message
 
-def newSMS(text):
+
+def newSMS(mytext):
     print("new mail")
 
 def shouldContinue(lastName):
@@ -86,10 +88,10 @@ def shouldContinue(lastName):
         elif transmit == 2:
             newMail()
 
-def ScanUI():
-    myResults = dict()
-    raw = scan()
+def main():
+    raw = scanner()
     myScan = list(raw)[0]
+    myResults = dict()
     scan = console.alert('{}'.format(myScan), 'Vil du godkjenne {}'.format(myScan), 'Ja', 'Nei', hide_cancel_button=True)
 
     if scan == 1:
@@ -100,13 +102,9 @@ def ScanUI():
         myResults[myScan] = 'Ikke godkjent'
         print("NEI, ikke godkjent")
 
-
-def main():
-    ScanUI()
-
-
 if __name__ == '__main__':
     main()
+    print(myResults)
 
     # bg_view = ui.View()
     # bg_view.name = '5S-godkjenning' 

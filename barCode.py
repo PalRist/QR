@@ -68,22 +68,37 @@ def main():
     output.release()
     return s
 
+def newMail(text):
+    print("new mail")
+
+def newSMS(text):
+    print("new mail")
+
+def shouldContinue(lastName):
+    variable = console.alert('{} er ført.'.format(lastName), 'Vil du scanne flere?', 'Ja', 'Send resultater', hide_cancel_button=True)
+    if variable == 1:
+        print("JA, flere")
+    elif variable == 2:
+        print("NEI, Send resultater")
+
+
 if __name__ == '__main__':
     raw = main()
     myScan = list(raw)[0]
-    bg_view = ui.View()
-    bg_view.name = '5S-godkjenning' 
-    bg_view.background_color = 'white'    
-    label = ui.Label(frame=(0, 50, bg_view.width, bg_view.height/3), flex='W', name='label')
-    label.text = 'Vil du godkjenne {}s 5S?'.format(myScan)
-    label.alignment = ui.ALIGN_CENTER
-    bg_view.add_subview(label)
-    bg_view.present('sheet')
-
-    console.alert('Tittel', 'Tekst', 'Ja', 'Nei', hide_cancel_button=True)
-
-
-
+    # bg_view = ui.View()
+    # bg_view.name = '5S-godkjenning' 
+    # bg_view.background_color = 'white'    
+    # label = ui.Label(frame=(0, 50, bg_view.width, bg_view.height/3), flex='W', name='label')
+    # label.text = 'Vil du godkjenne {}s 5S?'.format(myScan)
+    # label.alignment = ui.ALIGN_CENTER
+    # bg_view.add_subview(label)
+    # bg_view.present('sheet')
+    scan = console.alert('{}', 'Vil du godkjenne {}'.format(myScan), 'Ja', 'Nei', hide_cancel_button=True)
+    if scan == 1:
+        print("JA, godkjent")
+        shouldContinue(myScan)
+    elif scan == 2:
+        print("NEI, ikke godkjent")
 
 
 

@@ -14,15 +14,14 @@ class QRscanner(self):
         protocols=['AVCaptureMetadataOutputObjectsDelegate']
         )
 
-    def __init__(self):
-        self.main_view = None
-        self.AVCaptureSession = ObjCClass('AVCaptureSession')
-        self.AVCaptureDevice = ObjCClass('AVCaptureDevice')
-        self.AVCaptureDeviceInput = ObjCClass('AVCaptureDeviceInput')
-        self.AVCaptureMetadataOutput = ObjCClass('AVCaptureMetadataOutput')
-        self.AVCaptureVideoPreviewLayer = ObjCClass('AVCaptureVideoPreviewLayer')
-        self.dispatch_get_current_queue = c.dispatch_get_current_queue
-        self.dispatch_get_current_queue.restype = c_void_p
+    main_view = None
+    AVCaptureSession = ObjCClass('AVCaptureSession')
+    AVCaptureDevice = ObjCClass('AVCaptureDevice')
+    AVCaptureDeviceInput = ObjCClass('AVCaptureDeviceInput')
+    AVCaptureMetadataOutput = ObjCClass('AVCaptureMetadataOutput')
+    AVCaptureVideoPreviewLayer = ObjCClass('AVCaptureVideoPreviewLayer')
+    dispatch_get_current_queue = c.dispatch_get_current_queue
+    dispatch_get_current_queue.restype = c_void_p
 
 
     def captureOutput_didOutputMetadataObjects_fromConnection_(_self, _cmd, _output, _metadata_objects, _conn):
@@ -35,7 +34,7 @@ class QRscanner(self):
             main_view['label'].text = 'Last scan: ' + s
 
     @on_main_thread
-    def main():
+    def main(self):
         global main_view
         delegate = MetadataDelegate.new()
         main_view = ui.View(frame=(0, 0, 400, 400))

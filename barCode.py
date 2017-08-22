@@ -9,7 +9,6 @@ import sound
 
 class QRscanner(self):
     self.found_codes = set()   
-    
     self.main_view = None
     self.AVCaptureSession = ObjCClass('AVCaptureSession')
     self.AVCaptureDevice = ObjCClass('AVCaptureDevice')
@@ -24,33 +23,33 @@ class QRscanner(self):
         objects = ObjCInstance(_metadata_objects)
         for obj in objects:
             s = str(obj.stringValue())
-            if s not in found_codes:
-                found_codes.add(s)
+            if s not in self.found_codes:
+                self.found_codes.add(s)
                 sound.play_effect('digital:PowerUp7')
-            main_view['label'].text = 'Last scan: ' + s
+            self.main_view['label'].text = 'Last scan: ' + s
 
     self.MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_didOutputMetadataObjects_fromConnection_], protocols=['AVCaptureMetadataOutputObjectsDelegate'])
 
     @on_main_thread
     def main(self):
         global main_view
-        delegate = MetadataDelegate.new()
-        main_view = ui.View(frame=(0, 0, 400, 400))
-        main_view.name = 'Barcode Scanner'
-        session = AVCaptureSession.alloc().init()
-        device = AVCaptureDevice.defaultDeviceWithMediaType_('vide')
-        _input = AVCaptureDeviceInput.deviceInputWithDevice_error_(device, None)
+        delegate = self.MetadataDelegate.new()
+        self.main_view = ui.View(frame=(0, 0, 400, 400))
+        self.main_view.name = 'Barcode Scanner'
+        session = self.AVCaptureSession.alloc().init()
+        device = self.AVCaptureDevice.defaultDeviceWithMediaType_('vide')
+        _input = self.AVCaptureDeviceInput.deviceInputWithDevice_error_(device, None)
         if _input:
             session.addInput_(_input)
         else:
             print('Failed to create input')
             return
-        output = AVCaptureMetadataOutput.alloc().init()
-        queue = ObjCInstance(dispatch_get_current_queue())
+        output = self.AVCaptureMetadataOutput.alloc().init()
+        queue = ObjCInstance(self.dispatch_get_current_queue())
         output.setMetadataObjectsDelegate_queue_(delegate, queue)
         session.addOutput_(output)
         output.setMetadataObjectTypes_(output.availableMetadataObjectTypes())
-        prev_layer = AVCaptureVideoPreviewLayer.layerWithSession_(session)
+        prev_layer = self.AVCaptureVideoPreviewLayer.layerWithSession_(session)
         prev_layer.frame = ObjCInstance(main_view).bounds()
         prev_layer.setVideoGravity_('AVLayerVideoGravityResizeAspectFill')
         ObjCInstance(main_view).layer().addSublayer_(prev_layer)

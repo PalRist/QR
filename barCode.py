@@ -68,18 +68,26 @@ def main():
     return s
  
  def background():
-    bg_view = ui.View()
-    bg_view.name = 'background' 
-    bg_view.background_color = 'white'
-    bg_view.present('sheet')
+
 
 
 if __name__ == '__main__':
     raw = main()
-    background()
     myScan = list(raw)[0]
-    myPrompt = console.alert('Vil du godkjenne', 'Ja', 'Nei', hide_cancel_button=True)
-    if myPrompt == 1:
-        print("Ja")
-    elif myPrompt == 2:
-        print("Nei")
+    bg_view = ui.View()
+    bg_view.name = 'background' 
+    bg_view.background_color = 'white'    
+    label = ui.Label(frame=(0, 0, 400, 60), flex='W', name='label')
+    label.text = 'Vil du godkjenne {}s 5S?'.format(myScan)
+    label.alignment = ui.ALIGN_CENTER
+    bg_view.add_subview(label)
+    bg_view.present('sheet')
+
+    console.alert('Tittel', 'Ja', 'Nei', hide_cancel_button=True)
+
+
+
+
+
+
+

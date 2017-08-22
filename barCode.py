@@ -7,6 +7,7 @@ from ctypes import c_void_p
 import ui
 import sound
 
+s = set()
 main_view = None
  
 AVCaptureSession = ObjCClass('AVCaptureSession')
@@ -20,7 +21,7 @@ dispatch_get_current_queue.restype = c_void_p
 def captureOutput_didOutputMetadataObjects_fromConnection_(_self, _cmd, _output, _metadata_objects, _conn):
     objects = ObjCInstance(_metadata_objects)
     for obj in objects:
-        s = str(obj.stringValue())
+        s.add(str(obj.stringValue()))
         # if s not in found_code:
         sound.play_effect('digital:PowerUp7')
     # main_view['label'].text = 'Last scan: ' + s
@@ -72,4 +73,4 @@ def main():
 
 if __name__ == '__main__':
     a = main()
-    print(str(a))
+    print(list(a))

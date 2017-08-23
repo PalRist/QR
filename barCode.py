@@ -10,7 +10,7 @@ import email
 import console
 import clipboard
 
-s = set()
+# s = set()
 main_view = None
  
 AVCaptureSession = ObjCClass('AVCaptureSession')
@@ -23,8 +23,10 @@ dispatch_get_current_queue.restype = c_void_p
  
 def captureOutput_didOutputMetadataObjects_fromConnection_(_self, _cmd, _output, _metadata_objects, _conn):
     objects = ObjCInstance(_metadata_objects)
+    theCode = ''
     for obj in objects:
-        s.add(str(obj.stringValue()))
+        # s.add(str(obj.stringValue()))
+        theCode = str(obj.stringValue())
         # if s not in found_code:
         sound.play_effect('digital:PowerUp7')
     # main_view['label'].text = 'Last scan: ' + s
@@ -33,7 +35,7 @@ def captureOutput_didOutputMetadataObjects_fromConnection_(_self, _cmd, _output,
 MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_didOutputMetadataObjects_fromConnection_], protocols=['AVCaptureMetadataOutputObjectsDelegate'])
  
 @on_main_thread
-def scanner():
+def CodeScanner():
     global main_view
     delegate = MetadataDelegate.new()
     main_view = ui.View(frame=(0, 0, main_view.width, main_view.height))
@@ -68,7 +70,7 @@ def scanner():
     delegate.release()
     session.release()
     output.release()
-    return s
+    return theCode
 
 def newMail(mytext):
     for i in mytext:
@@ -79,7 +81,7 @@ def newSMS(mytext):
     for i in mytext:
         print(i, mytext[i])
 
-def shouldContinue(myResults, lastName):
+def ContinueDialog(myResults, lastName):
     variable = console.alert('{} er ført.'.format(lastName), 'Vil du scanne flere?', 'Ja', 'Send resultater', hide_cancel_button=True)
     if variable == 1:
         main()
@@ -95,7 +97,7 @@ def shouldContinue(myResults, lastName):
             clipboard.set(myString)
 
 def main():
-    raw = scanner()
+    raw = CodeScanner()
     myScan = list(raw)[-1]
     scan = console.alert('{}'.format(myScan), 'Vil du godkjenne {}'.format(myScan), 'Ja', 'Nei', hide_cancel_button=True)
 
@@ -104,7 +106,7 @@ def main():
     elif scan == 2:
         myResults[myScan] = 'Ikke godkjent'
 
-    shouldContinue(myResults, myScan)
+    ContinueDialog(myResults, myScan)
 
     return myResults
 

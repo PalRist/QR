@@ -10,7 +10,7 @@ import email
 import console
 import clipboard
 
-# s = set()
+s = set()
 main_view = None
  
 AVCaptureSession = ObjCClass('AVCaptureSession')
@@ -25,8 +25,8 @@ def captureOutput_didOutputMetadataObjects_fromConnection_(_self, _cmd, _output,
     objects = ObjCInstance(_metadata_objects)
     theCode = ''
     for obj in objects:
-        # s.add(str(obj.stringValue()))
-        theCode = str(obj.stringValue())
+        s.add(str(obj.stringValue()))
+        # theCode = str(obj.stringValue())
         # if s not in found_code:
         sound.play_effect('digital:PowerUp7')
     # main_view['label'].text = 'Last scan: ' + s
@@ -38,7 +38,7 @@ MetadataDelegate = create_objc_class('MetadataDelegate', methods=[captureOutput_
 def CodeScanner():
     global main_view
     delegate = MetadataDelegate.new()
-    main_view = ui.View(frame=(0, 0, main_view.width, main_view.height))
+    main_view = ui.View(frame=(0, 0, 400, 400))
     main_view.name = 'Barcode Scanner'
     session = AVCaptureSession.alloc().init()
     device = AVCaptureDevice.defaultDeviceWithMediaType_('vide')
@@ -70,7 +70,7 @@ def CodeScanner():
     delegate.release()
     session.release()
     output.release()
-    return theCode
+    return s
 
 def newMail(mytext):
     for i in mytext:

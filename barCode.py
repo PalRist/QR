@@ -98,7 +98,7 @@ def ContinueDialog(myResults, lastName):
 
 def main():
     raw = CodeScanner()
-    if not raw == '':
+    if raw:
         myScan = raw[-1]
         scan = console.alert('{}'.format(myScan), 'Vil du godkjenne {}'.format(myScan), 'Ja', 'Nei', hide_cancel_button=True)
 
@@ -114,5 +114,6 @@ def main():
 if __name__ == '__main__':
     myResults = dict()
     myResults = main()
-    for i in myResults:
-        print(i, myResults[i])
+    if myResults:
+        for i in myResults:
+            print(i, myResults[i])

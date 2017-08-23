@@ -98,17 +98,18 @@ def ContinueDialog(myResults, lastName):
 
 def main():
     raw = CodeScanner()
-    myScan = raw[-1]
-    scan = console.alert('{}'.format(myScan), 'Vil du godkjenne {}'.format(myScan), 'Ja', 'Nei', hide_cancel_button=True)
+    if not raw == '':
+        myScan = raw[-1]
+        scan = console.alert('{}'.format(myScan), 'Vil du godkjenne {}'.format(myScan), 'Ja', 'Nei', hide_cancel_button=True)
 
-    if scan == 1:
-        myResults[myScan] = 'Godkjent'
-    elif scan == 2:
-        myResults[myScan] = 'Ikke godkjent'
+        if scan == 1:
+            myResults[myScan] = 'Godkjent'
+        elif scan == 2:
+            myResults[myScan] = 'Ikke godkjent'
 
-    ContinueDialog(myResults, myScan)
+        ContinueDialog(myResults, myScan)
 
-    return myResults
+        return myResults
 
 if __name__ == '__main__':
     myResults = dict()

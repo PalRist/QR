@@ -10,7 +10,7 @@ import email
 import console
 import clipboard
 
-s = set()
+s = list()
 main_view = None
  
 AVCaptureSession = ObjCClass('AVCaptureSession')
@@ -25,7 +25,7 @@ def captureOutput_didOutputMetadataObjects_fromConnection_(_self, _cmd, _output,
     objects = ObjCInstance(_metadata_objects)
     theCode = ''
     for obj in objects:
-        s.add(str(obj.stringValue()))
+        s.append(str(obj.stringValue()))
         # theCode = str(obj.stringValue())
         # if s not in found_code:
         sound.play_effect('digital:PowerUp7')
@@ -98,7 +98,7 @@ def ContinueDialog(myResults, lastName):
 
 def main():
     raw = CodeScanner()
-    myScan = list(raw)[-1]
+    myScan = raw[-1]
     scan = console.alert('{}'.format(myScan), 'Vil du godkjenne {}'.format(myScan), 'Ja', 'Nei', hide_cancel_button=True)
 
     if scan == 1:

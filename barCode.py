@@ -60,7 +60,7 @@ def CodeScanner():
     label = ui.Label(frame=(0, 0, 400, 30), flex='W', name='label')
     label.background_color = (0, 0, 0, 0.5)
     label.text_color = 'white'
-    label.text = 'Nothing scanned yet'
+    label.text = 'Ingen kode funnet'
     label.alignment = ui.ALIGN_CENTER
     main_view.add_subview(label)
     session.startRunning()

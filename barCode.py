@@ -6,7 +6,6 @@ from objc_util import *
 from ctypes import c_void_p
 import ui
 import sound
-import email
 import console
 import clipboard
 
@@ -92,7 +91,7 @@ def ContinueDialog(myResults, lastName):
         #     newSMS(myString)
         # elif transmit == 2:
         #     newMail(myString)
-        elif transmit == 1:
+        if transmit == 1:
             clipboard.set(myString)
 
 def main():

@@ -76,7 +76,6 @@ def newMail(mytext):
     for i in mytext:
         print(i, mytext[i])
 
-
 def newSMS(mytext):
     for i in mytext:
         print(i, mytext[i])
@@ -87,13 +86,13 @@ def ContinueDialog(myResults, lastName):
         main()
 
     elif variable == 2:
-        transmit = console.alert('Sende resultater', 'Hvordan vil du sende resultatene?', 'iMessage', 'E-mail', 'Clipboard', hide_cancel_button=True)
+        transmit = console.alert('Sende resultater', 'Hvordan vil du sende resultatene?', 'Clipboard', hide_cancel_button=False)
         myString = '\n'.join(["{}, {}".format(key, value) for (key, value) in myResults.items()])
-        if transmit == 1:
-            newSMS(myString)
-        elif transmit == 2:
-            newMail(myString)
-        elif transmit == 3:
+        # if transmit == 1:
+        #     newSMS(myString)
+        # elif transmit == 2:
+        #     newMail(myString)
+        elif transmit == 1:
             clipboard.set(myString)
 
 def main():
